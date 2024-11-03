@@ -1,7 +1,14 @@
+import os
 from app import create_app
+from configurations.config import DevelopmentConfig, ProductionConfig
 
 
-app = create_app()
+if os.getenv("LIVE"):
+    config = ProductionConfig
+else:
+    config = DevelopmentConfig
+
+app = create_app(config)
 
 
 @app.shell_context_processor
