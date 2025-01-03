@@ -15,7 +15,6 @@ class Config:
     FLASK_ADMIN_SWATCH = "sandstone"
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     MAX_CONTENT_LENGTH = 100 * 1024
-    SQLALCHEMY_BINDS = {"sqldb": "sqlite:///sitedbl.db"}
     ALLOWED_EXTENSIONS = set(["jpg", "png", "webp"])
     PER_PAGE = 20
 

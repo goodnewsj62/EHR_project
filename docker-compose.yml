@@ -1,14 +1,15 @@
 services:
   db:
-    image: postgres:14-alpine
+    image: mysql:latest
     volumes:
-      - ehr_pg:/var/lib/postgresql/data
+      - my_ehr:/var/lib/mysql
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - "${DB_PORT}:3306"
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      - MYSQL_ROOT_PASSWORD=motherfucker
+      - MYSQL_USER=faithkoko
+      - MYSQL_PASSWORD=kpekuspass
+      - MYSQL_DATABASE=ehr_baby
 
 volumes:
-  ehr_pg:
+  my_ehr:
