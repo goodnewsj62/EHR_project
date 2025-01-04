@@ -4,7 +4,7 @@ services:
     volumes:
       - my_ehr:/var/lib/mysql
     ports:
-      - "${DB_PORT}:3306"
+      - ${DB_PORT}:3306
     environment:
       - MYSQL_ROOT_PASSWORD=motherfucker
       - MYSQL_USER=faithkoko

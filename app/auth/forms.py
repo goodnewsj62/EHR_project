@@ -3,11 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import EmailField, PasswordField, StringField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
-from app.auth.resuable_validators import (
-    ValidateEmail,
-    ValidatePassword,
-    ValidateUsername,
-)
+from app.auth.resuable_validators import ValidateEmail, ValidatePassword
 
 
 class LoginForm(FlaskForm):
@@ -16,6 +12,7 @@ class LoginForm(FlaskForm):
 
 
 class SignUpForm(FlaskForm):
+    fullname = StringField(validators=[DataRequired(), Length(min=3, max=100)])
     email = EmailField(
         validators=[
             DataRequired(),

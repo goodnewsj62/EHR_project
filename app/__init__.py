@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_login import LoginManager
+from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
@@ -12,6 +13,7 @@ class Base(DeclarativeBase):
 db = SQLAlchemy(model_class=Base)
 migrate = Migrate()
 login_manager = LoginManager()
+mail = Mail()
 
 
 def create_app(config=None):
@@ -21,13 +23,18 @@ def create_app(config=None):
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
+    mail.init_app(app)
 
     with app.app_context():
         from .auth.auth import auth
+        from .ehr.ehr import app as ehr
+        from .doctor.doctor import app as doctor
         from .errors.errors import error_403, error_404, error_500
 
         # Application buleprints
         app.register_blueprint(auth)
+        app.register_blueprint(ehr)
+        app.register_blueprint(doctor)
 
         # Error Pages
         app.register_error_handler(404, error_404)

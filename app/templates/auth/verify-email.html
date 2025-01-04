@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block content %}
+<main
+  class="container d-flex justify-content-center align-items-center"
+  style="height: 90vh"
+>
+  <div class="d-md-flex gap-4 justify-content-center align-items-center">
+    <div class="text-center">
+      <img
+        src="{{url_for('static',  filename='undraw_drone-delivery.svg')}}"
+        alt="sent"
+        class="d-none d-md-block"
+        width="300"
+      />
+      <img
+        src="{{url_for('static',  filename='undraw_drone-delivery.svg')}}"
+        alt="sent"
+        class="d-md-none"
+        width="180"
+      />
+    </div>
+
+    <div class="text-center text-md-start">
+      <h3>Activate your account</h3>
+      <p>An email has been sent for you to verify your account</p>
+    </div>
+  </div>
+</main>
+
+{% endblock content %}

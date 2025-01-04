@@ -1,20 +1,23 @@
-{% extends "base.html" %}
-
-{% block content %}
-        <section class="section">
-            <div class="container">
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-lg-8 text-center">
-                        <h1 class="display-3 mb-3">403 - Page Forbidden..</h1>
-                        <p class="h4">Whoops, it looks like you do not have the required permissions for the page you request.</p>
-                        <div class="my-7">
-                            <h1 style="font-size: 9rem !important;">403</h1>
-                        </div>
-                        <div>
-                            <a class="btn btn-primary" href="{{url_for('vlog.home')}}">Back to Home</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+{% extends "base.html" %} {% block content %}
+<section class="section">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-lg-8 text-center">
+        <h1 class="display-3 mb-3">403 - Page Forbidden..</h1>
+        <p class="h4">
+          Whoops, it looks like you do not have the required permissions for the
+          page you request.
+        </p>
+        <div class="my-7">
+          <h1 style="font-size: 9rem !important">403</h1>
+        </div>
+        <div>
+          <a class="btn btn-primary" href="{{url_for('ehr.home')}}"
+            >Back to Home</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock content %}

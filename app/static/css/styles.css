@@ -1,0 +1,32 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bs-font-sans-serif: "Roboto", sans-serif;
+}
+
+h1 {
+  color: #007bff;
+}
+
+.banner {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../img-docs-1.jpg");
+  height: 500px;
+  background-size: cover;
+  background-position: 50% 30%;
+  background-repeat: no-repeat;
+}
+
+.home__feature {
+  margin: 6rem 0;
+}
+
+.feature__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -1,0 +1,84 @@
+{% extends "base.html" %} {% block content %}
+<main>
+  <section class="banner container-fluid">
+    <div class="container-xxl h-100">
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="text-center text-white">
+          <h2>Get Started with the EHR System</h2>
+          <p class="lead">
+            Manage patients record optimally amd securely using our EHR system
+          </p>
+          <a href="{{url_for('auth.signup')}}" class="btn btn-primary btn-lg"
+            >Register Now</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-xxl">
+    <div class="text-center pt-5">
+      <h2>Features We Offer</h2>
+    </div>
+    <div class="container-fluid px-4">
+      <div
+        class="home__feature row align-items-center gap-4"
+        style="height: 400px"
+      >
+        <div class="col-lg-7 feature__img h-100">
+          <img
+            src="{{ url_for('static',  filename='lab-doc.jpg') }}"
+            class="img-fluid rounded"
+            alt="description"
+          />
+        </div>
+        <div class="col-lg-4 feature__content">
+          <h4>Lorem ipsum dolor sit</h4>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit
+            necessitatibus ex voluptatem dolorum et explicabo.
+          </p>
+        </div>
+      </div>
+      <div
+        class="home__feature row align-items-center gap-4"
+        style="height: 400px"
+      >
+        <div class="col-lg-7 order-lg-2 feature__img h-100">
+          <img
+            src="{{ url_for('static',  filename='face_mask.jpg') }}"
+            class="img-fluid rounded"
+            alt="description"
+          />
+        </div>
+        <div class="col-lg-4 feature__content">
+          <h4>Lorem ipsum dolor sit</h4>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit
+            necessitatibus ex voluptatem dolorum et explicabo.
+          </p>
+        </div>
+      </div>
+      <div
+        class="home__feature row align-items-center gap-4"
+        style="height: 400px"
+      >
+        <div class="col-lg-7 feature__img h-100">
+          <img
+            src="{{ url_for('static',  filename='old_lady.jpg') }}"
+            class="img-fluid rounded"
+            alt="description"
+          />
+        </div>
+        <div class="col-lg-4 feature__content">
+          <h4>Lorem ipsum dolor sit</h4>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit
+            necessitatibus ex voluptatem dolorum et explicabo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock content %}

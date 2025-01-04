@@ -2,16 +2,18 @@ from typing import List
 from functools import partial
 import datetime
 import enum
-from sqlalchemy import ForeignKey, Integer, String
+from flask_login import UserMixin
+from sqlalchemy import ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from . import db
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(primary_key=True)
+    fullname: Mapped[str] = mapped_column(String(400))
     email: Mapped[str] = mapped_column(String(100), unique=True)
-    password: Mapped[str]
+    password: Mapped[str] = mapped_column(Text())
     email_verified: Mapped[bool] = mapped_column(default=False)
     is_active: Mapped[bool] = mapped_column(default=True)
     date_created: Mapped[datetime.datetime] = mapped_column(
@@ -29,10 +31,10 @@ class Gender(enum.Enum):
 
 class Patient(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
-    fullname: Mapped[str] = mapped_column(nullable=False)
+    fullname: Mapped[str] = mapped_column(Text(), nullable=False)
     email: Mapped[str] = mapped_column(String(100), nullable=False)
     phone: Mapped[str] = mapped_column(String(16), nullable=False)
-    address: Mapped[str]
+    address: Mapped[str] = mapped_column(Text())
     age: Mapped[int]
     gender: Mapped[Gender]
     ethnicity: Mapped[str] = mapped_column(String(40), nullable=False)
@@ -46,7 +48,7 @@ class Patient(db.Model):
 
 class PatientRecord(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
-    description: Mapped[str]
+    description: Mapped[str] = mapped_column(Text())
     is_immunized: Mapped[bool] = mapped_column(default=False)
     appointment: Mapped[datetime.datetime]
     date_created: Mapped[datetime.datetime] = mapped_column(
@@ -59,7 +61,7 @@ class PatientRecord(db.Model):
 
 class Image(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
-    blob: Mapped[str]
+    blob: Mapped[str] = mapped_column(Text())
     date_created: Mapped[datetime.datetime] = mapped_column(
         default=partial(datetime.datetime.now, tz=datetime.timezone.utc)
     )
