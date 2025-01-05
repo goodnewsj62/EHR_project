@@ -1,1 +1,130 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<main class="container-xxl px-4">
+  <section class="my-4">
+    {# header #}
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <h4>EHR Dashboard</h4>
+      </div>
+      <div class="col-12 d-md-flex col-md-6">
+        <div class="ms-auto">
+          <strong>Welcome!</strong>
+          <p>Doctor {{current_user.fullname}}</p>
+        </div>
+      </div>
+    </div>
+    {# stat #}
+    <div class="d-flex flex-column flex-lg-row gap-4">
+      <div
+        class="rounded flex-grow-1 p-4 border d-flex flex-column flex-md-row gap-2 align-items-center"
+      >
+        <div class="d-flex flex-column flex-grow-1">
+          <img
+            src="{{url_for('static',  filename='doc_patient.svg')}}"
+            alt="attending doctor"
+            class="mx-auto"
+            width="200"
+          />
+          <h6 class="mt-4 text-center">Total Patients</h6>
+        </div>
+        <div class="fw-bold flex-grow-1" style="font-size: 4rem">
+          {{context["patient_count"]}}
+        </div>
+      </div>
+      <div
+        class="rounded flex-grow-1 p-4 border d-flex flex-column flex-md-row gap-2 align-items-center"
+      >
+        <div class="d-flex flex-column flex-grow-1">
+          <img
+            src="{{url_for('static',  filename='doc_records.svg')}}"
+            alt="attending doctor"
+            class="mx-auto"
+            width="130"
+          />
+          <h6 class="mt-4 text-center">Total Patient Record</h6>
+        </div>
+        <div class="fw-bold flex-grow-1" style="font-size: 4rem">
+          {{context["record_count"]}}
+        </div>
+      </div>
+    </div>
+  </section>
+  {# patients #}
+  <section>
+    <section class="d-flex my-2 justify-content-end">
+      <a href="{{url_for('doctor.create_patient')}}">
+        <button type="button" class="btn btn-primary">Create Patient</button>
+      </a>
+    </section>
+    <section>
+      <h4>Patients List</h3>
+      <div>
+      <table class="table table-striped">
+             <thead>
+                <tr>
+                <th scope="col">name</th>
+                <th scope="col">email</th>
+                <th scope="col">phone</th>
+                <th scope="col">age</th>
+                <th scope="col">ethnicity</th>
+                <th scope="col"></th>
+                </tr>
+            </thead>
+             <tbody>
+                {% for patient in context["patients"].items %}
+                    <tr>
+                        <td>{{patient.fullname}}</td>
+                        <td>{{patient.email}}</td>
+                        <td>{{patient.phone}}</td>
+                        <td>{{patient.age}}</td>
+                        <td>{{patient.ethnicity}}</td>
+                        <td>
+                            <a href="{{url_for('doctor.get_patient', id=patient.id)}}">
+                                <button type="button" class="btn btn-info btn-link py-0">View details</button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <nav aria-label="Pagination for table" class="my-4 d-flex justify-content-end">
+            <ul class="pagination pagination-sm">
+                {% if context['patients'].has_prev %}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ url_for('doctor.dashboard') }}?page={{context['patients'].prev_num}}">Previous</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" >Previous</a>
+                    </li>
+                {% endif %}
+                
+               
+                {% for num in  range(1, context['patients'].pages + 1) %}
+                    {% if context['patients'].page == num %}
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="{{ url_for('doctor.dashboard') }}?page={{num}}">{{num}}</a>
+                    </li>
+                    {% else %}
+                     <li class="page-item"><a class="page-link" href="{{ url_for('doctor.dashboard') }}?page={{num}}">{{num}}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if context['patients'].has_next %}
+                   <li class="page-item">
+                        <a class="page-link" href="{{ url_for('doctor.dashboard') }}?page={{context['patients'].next_num}}">Previous</a>
+                    </li>
+                {% else %}
+                   <li class="page-item disabled">
+                        <a class="page-link">Next</a>
+                    </li>
+                {% endif %}
+                
+            </ul>
+        </nav>
+      </div>
+    </section>
+  </section>
+</main>
+{% endblock content %}
+

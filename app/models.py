@@ -29,6 +29,11 @@ class Gender(enum.Enum):
     OTHERS = "others"
 
 
+class RelationShipStatus(enum.Enum):
+    MARRIED = "married"
+    SINGLE = "single"
+
+
 class Patient(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     fullname: Mapped[str] = mapped_column(Text(), nullable=False)
@@ -37,6 +42,10 @@ class Patient(db.Model):
     address: Mapped[str] = mapped_column(Text())
     age: Mapped[int]
     gender: Mapped[Gender]
+    relationship_status: Mapped[RelationShipStatus] = mapped_column(
+        default=RelationShipStatus.SINGLE
+    )
+    allergies: Mapped[str] = mapped_column(Text(), default="")
     ethnicity: Mapped[str] = mapped_column(String(40), nullable=False)
     date_created: Mapped[datetime.datetime] = mapped_column(
         default=partial(datetime.datetime.now, tz=datetime.timezone.utc)
@@ -51,6 +60,7 @@ class PatientRecord(db.Model):
     description: Mapped[str] = mapped_column(Text())
     is_immunized: Mapped[bool] = mapped_column(default=False)
     appointment: Mapped[datetime.datetime]
+    medication: Mapped[str] = mapped_column(Text(), default="")
     date_created: Mapped[datetime.datetime] = mapped_column(
         default=partial(datetime.datetime.now, tz=datetime.timezone.utc)
     )

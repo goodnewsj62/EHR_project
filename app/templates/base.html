@@ -50,6 +50,12 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{url_for('ehr.faq')}}">FAQ</a>
               </li>
+              {% if current_user.is_authenticated %}
+              <li class="d-md-none">
+                <a class="nav-link" href="{{url_for('auth.logout')}}">Logout</a>
+              </li>
+              {%else%}
+
               <li class="d-md-none">
                 <a class="nav-link" href="{{url_for('auth.login')}}">Login</a>
               </li>
@@ -58,8 +64,17 @@
                   >Doctor Registration</a
                 >
               </li>
+              {%endif%}
             </ul>
           </div>
+
+          {% if current_user.is_authenticated %}
+          <div class="d-none d-md-flex align-items-center" style="gap: 1rem">
+            <a class="" href="{{url_for('auth.logout')}}">
+              <button type="button" class="btn btn-primary px-4">Logout</button>
+            </a>
+          </div>
+          {%else%}
 
           <div class="d-none d-md-flex align-items-center" style="gap: 1rem">
             <a class="" href="{{url_for('auth.signup')}}">
@@ -71,6 +86,8 @@
               <button type="button" class="btn btn-primary px-4">Login</button>
             </a>
           </div>
+
+          {%endif%}
         </nav>
       </div>
     </header>

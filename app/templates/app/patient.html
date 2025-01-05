@@ -1,0 +1,184 @@
+{% extends "base.html" %} {% block content %}
+<main class="container-xxl py-5">
+  <section class="row">
+    <aside class="col-12 col-xl-4 rounded py-4 border shadow-sm">
+      <div class="d-flex">
+        <div
+          class="bg-light mx-auto fw-bold fs-2 justify-content-center align-items-center d-flex"
+          style="
+            height: 120px;
+            text-transform: uppercase;
+            width: 120px;
+            color: rgba(0, 0, 0, 0.6);
+            border-radius: 100%;
+          "
+        >
+          {{patient.fullname[0:2]}}
+        </div>
+      </div>
+      <div class="py-4">
+        <h5 class="text-center">{{patient.fullname}}</h5>
+        <div>
+          <strong class="">Address</strong>
+          <p>{{patient.address}}</p>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <strong class="">Email</strong>
+            <p>{{patient.email}}</p>
+          </div>
+          <div class="col-6 align-items-end d-flex flex-column">
+            <strong class="">Age</strong>
+            <p>{{patient.age}}</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <strong class="">Ethnicity</strong>
+            <p>{{patient.ethnicity}}</p>
+          </div>
+          <div class="col-6 align-items-end d-flex flex-column">
+            <strong>Gender</strong>
+            <p style="text-transform: lowercase">{{patient.gender.name}}</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <strong class="align-self-end">Phone</strong>
+            <p>{{patient.phone}}</p>
+          </div>
+          <div class="col-6 d-flex align-items-end flex-column">
+            <strong class="align-self-end">Marital Status</strong>
+            <p style="text-transform: lowercase">
+              {{patient.relationship_status.name}}
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <strong class="">Allergies</strong>
+          {% if patient.allergies %}
+          <p>{{patient.allergies}}</p>
+          {% else %}
+          <p>none</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="">
+        <a href="{{url_for('doctor.update_patient', id=patient.id)}}">
+          <button type="button" class="btn btn-primary w-100">Update</button></a
+        >
+        <form
+          action="{{url_for('doctor.delete_patient', id=patient.id)}}"
+          method="post"
+          class="my-3"
+        >
+          <button type="submit" class="btn btn-danger w-100">Delete</button>
+        </form>
+      </div>
+    </aside>
+    <section class="col-12 col-xl-8 px-4">
+      <section class="d-flex my-2 justify-content-end">
+        <a href="{{url_for('doctor.create_patient_record', id=patient.id)}}">
+          <button type="button" class="btn btn-primary">Create Record</button>
+        </a>
+      </section>
+      <section class="">
+        <h4>Record History</h4>
+        <div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">immunization status</th>
+                <th scope="col">appointment date</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for record in records.items %}
+              <tr>
+                <td>{{record.id}}</td>
+                {% if record.is_immunized %}
+                <td>Yes</td>
+                {% else %}
+                <td>No</td>
+                {% endif %}
+                <td>{{record.appointment}}</td>
+
+                <td>
+                  <a href="{{url_for('doctor.get_record', id=record.id)}}">
+                    <button type="button" class="btn btn-info btn-link py-0">
+                      View details
+                    </button>
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <nav
+            aria-label="Pagination for table"
+            class="my-4 d-flex justify-content-end"
+          >
+            <ul class="pagination pagination-sm">
+              {% if records.has_prev %}
+              <li class="page-item">
+                <a
+                  class="page-link"
+                  href="{{ url_for('doctor.get_patient', id='patient.id') }}?page={{records.prev_num}}"
+                  >Previous</a
+                >
+              </li>
+              {% else %}
+              <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+              </li>
+              {% endif %} {% for num in range(1, records.pages + 1) %} {% if
+              records.page == num %}
+              <li class="page-item active" aria-current="page">
+                <a
+                  class="page-link"
+                  href="{{ url_for('doctor.get_patient', id='patient.id') }}?page={{num}}"
+                  >{{num}}</a
+                >
+              </li>
+              {% else %}
+              <li class="page-item">
+                <a
+                  class="page-link"
+                  href="{{ url_for('doctor.get_patient', id='patient.id') }}?page={{num}}"
+                  >{{num}}</a
+                >
+              </li>
+              {% endif %} {% endfor %} {% if records.has_next %}
+              <li class="page-item">
+                <a
+                  class="page-link"
+                  href="{{ url_for('doctor.get_patient', id='patient.id') }}?page={{records.next_num}}"
+                  >Previous</a
+                >
+              </li>
+              {% else %}
+              <li class="page-item disabled">
+                <a class="page-link">Next</a>
+              </li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>
+      </section>
+    </section>
+  </section>
+</main>
+{% endblock content %} {# description: Mapped[str] = mapped_column(Text())
+is_immunized: Mapped[bool] = mapped_column(default=False) appointment:
+Mapped[datetime.datetime] date_created: Mapped[datetime.datetime] =
+mapped_column( default=partial(datetime.datetime.now, tz=datetime.timezone.utc)
+) patient_id: Mapped[int] = mapped_column(ForeignKey("patient.id")) images:
+Mapped[List["Image"]] = relationship(back_populates="record") patient:
+Mapped["Patient"] = relationship(back_populates="records") #}

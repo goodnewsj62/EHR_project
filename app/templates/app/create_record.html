@@ -1,0 +1,94 @@
+{% extends "base.html" %} {% block head %}
+<script src="https://cdn.jsdelivr.net/npm/litepicker@2.0.12/dist/litepicker.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/litepicker@2.0.12/dist/css/litepicker.min.css"
+/>
+{% endblock head %} {% block content %}
+<main class="container-xxl px-4 py-5">
+  <div class="mx-auto w-100" style="max-width: 660px">
+    <section class="">
+      <h5 class="h3 mb-3 font-weight-normal">Create Record</h5>
+    </section>
+    <section>
+      <form class="form-signin flex-grow-1" method="post">
+        {{form.hidden_tag()}} {% with
+        messages=get_flashed_messages(with_categories=true) %} {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{category}}" role="alert">
+          {# <strong></strong> #}
+          <span>{{message}}</span>
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
+        <div class="my-4 field">
+          {% if form.description.errors %} {{form.description(
+          placeholder="Description or Issue", class="form-control field__error
+          ")}}
+          <ul class="error__list text-start text-danger">
+            {% for error in form.description.errors %}
+            <li>{{error}}</li>
+            {% endfor %}
+          </ul>
+          {% else %} {{form.description(placeholder="Description or Issue ",
+          class="form-control")}} {% endif %}
+        </div>
+        <div class="my-4 field">
+          {% if form.is_immunized.errors %} {{form.is_immunized(
+          placeholder="",id="flexCheckDefault", class="form-check-input
+          field__error ")}}
+          <ul class="error__list text-start text-danger">
+            {% for error in form.is_immunized.errors %}
+            <li>{{error}}</li>
+            {% endfor %}
+          </ul>
+          {% else %} {{form.is_immunized(placeholder="
+          ",id="flexCheckDefault",class="form-check-input")}} {% endif %}
+          <label class="form-check-label" for="flexCheckDefault">
+            immunization status
+          </label>
+        </div>
+        <div class="my-4 field">
+          <label class="form-label" for="date__picker">
+            date of appointment
+          </label>
+          {% if form.appointment_date.errors %}
+          {{form.appointment_date(placeholder="", id="date__picker" ,
+          class="form-control field__error")}}
+          <ul class="error__list text-start text-danger">
+            {% for error in form.appointment_date.errors %}
+            <li>{{error}}</li>
+            {% endfor %}
+          </ul>
+          {% else %} {{form.appointment_date(placeholder="", id="date__picker" ,
+          class="form-control")}} {% endif %}
+        </div>
+
+        <div class="my-4 field">
+          <label class="form-label" for="time_of_appointment">
+            time of appointment
+          </label>
+          {% if form.appointment_time.errors %}
+          {{form.appointment_time(placeholder="",
+          id="time_of_appointment",class="form-control field__error")}}
+          <ul class="error__list text-start text-danger">
+            {% for error in form.appointment_time.errors %}
+            <li>{{error}}</li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          {{form.appointment_time(placeholder="",id="time_of_appointment",
+          class="form-control")}} {% endif %}
+        </div>
+
+        <button class="btn btn-primary w-100" type="submit">Create</button>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    const picker = new Litepicker({
+      element: document.getElementById("date__picker"),
+    });
+  </script>
+</main>
+{% endblock content %}
