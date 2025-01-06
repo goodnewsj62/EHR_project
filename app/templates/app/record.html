@@ -57,6 +57,14 @@
     >
       {% for image in record.images %}
       <div class="w-100 position-relative" style="height: 300px">
+        <form
+          method="post"
+          class="position-absolute"
+          style="top: 1rem; right: 1rem"
+          action="{{url_for('doctor.delete_image',  id=image.id)}}"
+        >
+          <button type="submit" class="btn btn-danger">Delete Image</button>
+        </form>
         <img
           src="{{url_for('ehr.display_image',  filename=image.filename)}}"
           class="w-100 h-100 rounded border img-fluid"
