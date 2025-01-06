@@ -19,9 +19,9 @@ class Config:
     PER_PAGE = 20
     # Configure Flask-Mail settings
     MAIL_SERVER = os.getenv("MAIL_SERVER")
-    MAIL_PORT = 587  # Replace with your email server's port
-    MAIL_USE_TLS = True
-    MAIL_USE_SSL = False
+    MAIL_PORT = 465  # Replace with your email server's port
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
     MAIL_USERNAME = os.getenv("MAIL_USERNAME")
     MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
     MAIL_DEFAULT_SENDER = ("EHR", "noreply@gmail.com")
