@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block content %}
+<main class="container-xxl py-5 px-4">
+  <section
+    class="p-3 rounded d-flex justify-content-between"
+    style="background: #d1e4f7"
+  >
+    <h5>Record for {{record.patient.fullname}}</h5>
+    <div class="d-flex gap-3 align-items-center">
+      <a href="{{url_for('doctor.update_patient_record',  id=record.id)}}">
+        <button type="button" class="btn btn-success">Update Record</button>
+      </a>
+      <form
+        method="post"
+        action="{{url_for('doctor.delete_record',  id=record.id)}}"
+      >
+        <button type="submit" class="btn btn-danger">Delete Record</button>
+      </form>
+    </div>
+  </section>
+  <section></section>
+  <section></section>
+  <section class="w-100">
+    <div
+      class="w-100"
+      style="
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      "
+    >
+      {% for image in record.images %}
+      <div class="w-100 position-relative" style="height: 300px">
+        <img
+          src="{{url_for('ehr.display_image',  filename=image.filename)}}"
+          class="w-100 h-100 rounded border img-fluid"
+          alt="image"
+        />
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</main>
+{% endblock content %}

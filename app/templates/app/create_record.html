@@ -95,8 +95,8 @@
             <strong id="size"></strong>
           </div>
 
-          {{form.photos(placeholder="",id="files", class="position-absolute
-          top-0 left-0 opacity-0 w-100 h-100")}}
+          {{form.photos(placeholder="",id="files", accept=".jpg, .png",
+          class="position-absolute top-0 left-0 opacity-0 w-100 h-100")}}
         </div>
         {% if form.photos.errors %}
         <ul class="error__list text-start text-danger">
