@@ -200,15 +200,13 @@ def update_patient_record(id):
     form = PatientRecordForm(obj=obj)
 
     if form.validate_on_submit():
-
-        record = PatientRecord()
+        record = obj
         form.populate_obj(record)
         naive_datetime = datetime.combine(
             form.appointment_date.data, form.appointment_time.data
         )
         utc_datetime = naive_datetime.replace(tzinfo=timezone.utc)
         record.appointment = utc_datetime
-        db.session.add(record)
 
         paths = []
         try:
@@ -247,6 +245,9 @@ def update_patient_record(id):
 
             print(e)
             flash("error creating record", category="error")
+
+    form.appointment_date.data = obj.appointment.date()
+    form.appointment_time.data = obj.appointment.time()
 
     return render_template("app/update_record.html", form=form)
 
