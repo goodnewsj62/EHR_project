@@ -14,7 +14,7 @@ class Config:
     SECRET_KEY = os.getenv("SECRET_KEY")
     FLASK_ADMIN_SWATCH = "sandstone"
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    MAX_CONTENT_LENGTH = 100 * 1024
+    MAX_CONTENT_LENGTH = 10 * 1024 * 1024
     ALLOWED_EXTENSIONS = set(["jpg", "png", "webp"])
     PER_PAGE = 20
     # Configure Flask-Mail settings

@@ -19,7 +19,9 @@ class User(db.Model, UserMixin):
     date_created: Mapped[datetime.datetime] = mapped_column(
         default=partial(datetime.datetime.now, tz=datetime.timezone.utc)
     )
-    patients: Mapped[List["Patient"]] = relationship(back_populates="creator")
+    patients: Mapped[List["Patient"]] = relationship(
+        back_populates="creator", cascade="all,  delete", passive_deletes=True
+    )
 
 
 class Gender(enum.Enum):
@@ -50,8 +52,10 @@ class Patient(db.Model):
     date_created: Mapped[datetime.datetime] = mapped_column(
         default=partial(datetime.datetime.now, tz=datetime.timezone.utc)
     )
-    records: Mapped[List["PatientRecord"]] = relationship(back_populates="patient")
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    records: Mapped[List["PatientRecord"]] = relationship(
+        back_populates="patient", cascade="all,  delete", passive_deletes=True
+    )
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
     creator: Mapped["User"] = relationship(back_populates="patients")
 
 
@@ -64,16 +68,23 @@ class PatientRecord(db.Model):
     date_created: Mapped[datetime.datetime] = mapped_column(
         default=partial(datetime.datetime.now, tz=datetime.timezone.utc)
     )
-    patient_id: Mapped[int] = mapped_column(ForeignKey("patient.id"))
-    images: Mapped[List["Image"]] = relationship(back_populates="record")
+    patient_id: Mapped[int] = mapped_column(
+        ForeignKey("patient.id", ondelete="CASCADE")
+    )
+    images: Mapped[List["Image"]] = relationship(
+        back_populates="record", cascade="all,  delete", passive_deletes=True
+    )
     patient: Mapped["Patient"] = relationship(back_populates="records")
 
 
 class Image(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
-    blob: Mapped[str] = mapped_column(Text())
+    path: Mapped[str] = mapped_column(Text())
+    filename: Mapped[str] = mapped_column(Text())
     date_created: Mapped[datetime.datetime] = mapped_column(
         default=partial(datetime.datetime.now, tz=datetime.timezone.utc)
     )
-    record_id: Mapped[int] = mapped_column(ForeignKey("patient_record.id"))
+    record_id: Mapped[int] = mapped_column(
+        ForeignKey("patient_record.id", ondelete="CASCADE")
+    )
     record: Mapped["PatientRecord"] = relationship(back_populates="images")

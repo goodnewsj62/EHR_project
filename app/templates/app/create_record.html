@@ -11,7 +11,11 @@
       <h5 class="h3 mb-3 font-weight-normal">Create Record</h5>
     </section>
     <section>
-      <form class="form-signin flex-grow-1" method="post">
+      <form
+        class="form-signin flex-grow-1"
+        method="post"
+        enctype="multipart/form-data"
+      >
         {{form.hidden_tag()}} {% with
         messages=get_flashed_messages(with_categories=true) %} {% if messages %}
         {% for category, message in messages %}
@@ -79,6 +83,28 @@
           {{form.appointment_time(placeholder="",id="time_of_appointment",
           class="form-control")}} {% endif %}
         </div>
+        <div
+          class="w-100 my-4 rounded position-relative d-flex justify-content-center align-items-center"
+          style="height: 300px; background: #d8dbdf"
+        >
+          <div id="upload__info">
+            upload images (scans, pictures of documents)
+          </div>
+          <div id="stat" class="d-none">
+            <strong id="num__files"></strong> files uploaded total of
+            <strong id="size"></strong>
+          </div>
+
+          {{form.photos(placeholder="",id="files", class="position-absolute
+          top-0 left-0 opacity-0 w-100 h-100")}}
+        </div>
+        {% if form.photos.errors %}
+        <ul class="error__list text-start text-danger">
+          {% for error in form.photos.errors %}
+          <li>{{error}}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
 
         <button class="btn btn-primary w-100" type="submit">Create</button>
       </form>
@@ -86,8 +112,73 @@
   </div>
 
   <script>
-    const picker = new Litepicker({
-      element: document.getElementById("date__picker"),
+    document.addEventListener("DOMContentLoaded", () => {
+      const picker = new Litepicker({
+        element: document.getElementById("date__picker"),
+      });
+
+      const imageInput = document.querySelector("#files");
+      const uploadDiv = document.querySelector("#upload__info");
+      const fileSizeDisplay = document.querySelector("#size");
+      const numberOfFileDisplay = document.querySelector("#num__files");
+      const statDiv = document.querySelector("#stat");
+
+      // Convert input to blobs
+      imageInput.addEventListener("change", async (event) => {
+        const fileInput = event.target;
+        const files = fileInput.files;
+        const blobStorage = document.getElementById("blobStorage");
+
+        if (files.length > 0) {
+          // const blobs = [];
+          let totalSize = 0; // In bytes
+
+          // Convert each image file to a Blob
+          for (const file of files) {
+            // const blob = await fileToBlob(file);
+            // blobs.push(blob);
+            totalSize += file.size;
+          }
+
+          // Store the blobs as a JSON string in the hidden input
+          //blobStorage.value = JSON.stringify(blobs);
+          // console.log("Blobs stored:", blobs);
+
+          numberOfFileDisplay.textContent = files.length;
+          fileSizeDisplay.textContent =
+            (totalSize / (1024 * 1024)).toFixed(2) + " mb";
+          statDiv.classList.remove("d-none");
+          uploadDiv.classList.add("d-none");
+        } else {
+          uploadDiv.classList.add("d-none");
+          statDiv.classList.remove("d-none");
+        }
+      });
+
+      // Function to convert File to Blob
+      function fileToBlob(file) {
+        const reader = new FileReader();
+        // reader.onloadend = () => {
+        //  append(reader.result);
+        // };
+        // reader.readAsDataURL(file);
+
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            resolve(reader.result);
+          };
+          // reader.onload = function (e) {
+          //  const arrayBuffer = e.target.result;
+          //  const blob = new Blob([new Uint8Array(arrayBuffer)], {
+          //    type: file.type,
+          // });
+          // resolve(blob);
+          //};
+          reader.readAsDataURL(file);
+          // reader.readAsArrayBuffer(file);
+        });
+      }
     });
   </script>
 </main>
