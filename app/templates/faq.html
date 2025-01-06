@@ -1,67 +1,115 @@
-<div class="container my-5">
-    <h2 class="text-center">Frequently Asked Questions</h2>
-    <div class="accordion" id="faqAccordion">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="faq1">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1Content" aria-expanded="true" aria-controls="faq1Content">
-                    What is an EHR system?
-                </button>
-            </h2>
-            <div id="faq1Content" class="accordion-collapse collapse show" aria-labelledby="faq1">
-                <div class="accordion-body">
-                    An Electronic Health Record (EHR) system stores patient data securely and allows healthcare professionals to access and manage it efficiently.
-                </div>
-            </div>
+{% extends "base.html" %} {% block content %}
+<div class="container my-5" style="min-height: 57vh">
+  <h2 class="text-center">Frequently Asked Questions</h2>
+  <div class="accordion" id="faqAccordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faq1">
+        <button
+          class="accordion-button"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#faq1Content"
+          aria-expanded="true"
+          aria-controls="faq1Content"
+        >
+          What is an EHR system?
+        </button>
+      </h2>
+      <div
+        id="faq1Content"
+        class="accordion-collapse collapse show"
+        aria-labelledby="faq1"
+      >
+        <div class="accordion-body">
+          An Electronic Health Record (EHR) system stores patient data securely
+          and allows healthcare professionals to access and manage it
+          efficiently.
         </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="faq2">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2Content" aria-expanded="false" aria-controls="faq2Content">
-                    Is my data secure?
-                </button>
-            </h2>
-            <div id="faq2Content" class="accordion-collapse collapse" aria-labelledby="faq2">
-                <div class="accordion-body">
-                    Yes, our system uses the latest security protocols to ensure your data remains private and protected.
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faq2">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#faq2Content"
+          aria-expanded="false"
+          aria-controls="faq2Content"
+        >
+          Is my data secure?
+        </button>
+      </h2>
+      <div
+        id="faq2Content"
+        class="accordion-collapse collapse"
+        aria-labelledby="faq2"
+      >
+        <div class="accordion-body">
+          Yes, our system uses the latest security protocols to ensure your data
+          remains private and protected.
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <footer class="bg-dark text-white py-4">
-    <div class="container">
-        <div class="row">
-            <!-- About Section -->
-            <div class="col-md-4">
-                <h5>About Us</h5>
-                <p>We provide a secure and efficient EHR system for healthcare professionals to manage patient records seamlessly.</p>
-            </div>
+  <div class="container">
+    <div class="row">
+      <!-- About Section -->
+      <div class="col-md-4">
+        <h5>About Us</h5>
+        <p>
+          We provide a secure and efficient EHR system for healthcare
+          professionals to manage patient records seamlessly.
+        </p>
+      </div>
 
-            <!-- Quick Links -->
-            <div class="col-md-4">
-                <h5>Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
-                    <li><a href="about.html" class="text-white text-decoration-none">About</a></li>
-                    <li><a href="faq.html" class="text-white text-decoration-none">FAQs</a></li>
-                    <li><a href="contact.html" class="text-white text-decoration-none">Contact</a></li>
-                </ul>
-            </div>
+      <!-- Quick Links -->
+      <div class="col-md-4">
+        <h5>Quick Links</h5>
+        <ul class="list-unstyled">
+          <li>
+            <a href="index.html" class="text-white text-decoration-none"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a href="about.html" class="text-white text-decoration-none"
+              >About</a
+            >
+          </li>
+          <li>
+            <a href="faq.html" class="text-white text-decoration-none">FAQs</a>
+          </li>
+          <li>
+            <a href="contact.html" class="text-white text-decoration-none"
+              >Contact</a
+            >
+          </li>
+        </ul>
+      </div>
 
-            <!-- Contact Info -->
-            <div class="col-md-4">
-                <h5>Contact Us</h5>
-                <p>Email: support@ehrsystem.com</p>
-                <p>Phone: +1 234 567 890</p>
-                <div>
-                    <a href="#" class="text-white me-2"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-white me-2"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
+      <!-- Contact Info -->
+      <div class="col-md-4">
+        <h5>Contact Us</h5>
+        <p>Email: support@ehrsystem.com</p>
+        <p>Phone: +1 234 567 890</p>
+        <div>
+          <a href="#" class="text-white me-2"
+            ><i class="fab fa-facebook"></i
+          ></a>
+          <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-white me-2"
+            ><i class="fab fa-linkedin"></i
+          ></a>
         </div>
-        <hr class="bg-white">
-        <div class="text-center">
-            <p>&copy; 2024 EHR System. All Rights Reserved.</p>
-        </div>
+      </div>
     </div>
+    <hr class="bg-white" />
+    <div class="text-center">
+      <p>&copy; 2024 EHR System. All Rights Reserved.</p>
+    </div>
+  </div>
 </footer>
+{% endblock content %}
